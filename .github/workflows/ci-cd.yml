@@ -26,38 +26,38 @@ jobs:
           --health-retries=5
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-    - name: Set up Python
-      uses: actions/setup-python@v4
-      with:
-        python-version: '3.11'
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
 
-    - name: Install backend dependencies
-      run: |
-        cd backend
-        pip install -r requirements.txt
+      - name: Install backend dependencies
+        run: |
+          cd backend
+          pip install -r requirements.txt
 
-    - name: Run Alembic migrations
-      run: |
-        cd backend
-        alembic upgrade head
+      - name: Run Alembic migrations
+        run: |
+          cd backend
+          alembic upgrade head
 
-    - name: Start FastAPI with Uvicorn and test health
-      run: |
-        cd backend
-        nohup uvicorn app.main:app --host 0.0.0.0 --port 8000 &
-        sleep 10  # wait for server to start
-        curl http://localhost:8000
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
 
-    - name: Set up Node.js
-      uses: actions/setup-node@v3
-      with:
-        node-version: '18'
+      - name: Install and build frontend
+        run: |
+          cd frontend
+          npm install
+          npm run build
 
-    - name: Install and build frontend
-      run: |
-        cd frontend
-        npm install
-        npm run build
+      - name: Run FastAPI server and test endpoint
+        run: |
+          cd backend
+          uvicorn app.main:app --host 0.0.0.0 --port 8000 &
+          sleep 10
+          curl -f http://127.0.0.1:8000/
