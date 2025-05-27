@@ -13,6 +13,7 @@ jobs:
     services:
       db:
         image: postgres:15
+        container-name: db 
         env:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: sumapln
