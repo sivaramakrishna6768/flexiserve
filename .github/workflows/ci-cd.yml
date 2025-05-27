@@ -13,7 +13,6 @@ jobs:
     services:
       db:
         image: postgres:15
-        container-name: db   
         env:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: sumapln
@@ -69,6 +68,6 @@ jobs:
       - name: Run FastAPI server and test endpoint
         run: |
           cd backend
-          uvicorn app.main:app --host 0.0.0.0 --port 8000 &
+          nohup uvicorn app.main:app --host 0.0.0.0 --port 8000 &
           sleep 10
           curl -f http://127.0.0.1:8000/
