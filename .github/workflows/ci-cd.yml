@@ -37,35 +37,25 @@ jobs:
       - name: Install backend dependencies
         run: |
           cd backend
-          python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Run Alembic migration
+      - name: Run Alembic migrations
         run: |
           cd backend
           alembic upgrade head
 
-      - name: Start FastAPI backend in background
+      - name: Start FastAPI with Uvicorn (in background)
         run: |
           cd backend
-          uvicorn app.main:app --host 0.0.0.0 --port 8000 &
-          sleep 10
+          nohup uvicorn app.main:app --host 0.0.0.0 --port 8000 &
+          sleep 10  # wait for the server to start
 
       - name: Test FastAPI health endpoint
         run: |
-          curl --fail http://localhost:8000/
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '18'
-
-      - name: Install frontend dependencies
-        run: |
-          cd frontend
-          npm install
+          curl http://localhost:8000/
 
       - name: Build frontend
         run: |
           cd frontend
+          npm install
           npm run build
