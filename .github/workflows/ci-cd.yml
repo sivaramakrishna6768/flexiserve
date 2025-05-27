@@ -20,7 +20,6 @@ jobs:
         ports:
           - 5432:5432
         options: >-
-          --name=db
           --health-cmd="pg_isready"
           --health-interval=10s
           --health-timeout=5s
