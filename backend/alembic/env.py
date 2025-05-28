@@ -6,7 +6,7 @@ import os
 import sys
 
 # Load .env variables
-load_dotenv()
+load_dotenv(dotenv_path=".env.local")
 
 # Add the parent directory to the Python path so that `app` can be found
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))

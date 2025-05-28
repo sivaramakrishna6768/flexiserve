@@ -4,7 +4,7 @@ import os
 from dotenv import load_dotenv
 
 # Load .env file
-load_dotenv()
+load_dotenv(dotenv_path=".env.local")
 
 # Read DB URL from .env
 DATABASE_URL = os.getenv("DATABASE_URL", "postgresql://postgres:sumapln@localhost/flexiserve_db")
