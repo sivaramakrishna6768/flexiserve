@@ -3,15 +3,12 @@ from sqlalchemy.orm import sessionmaker, declarative_base
 import os
 from dotenv import load_dotenv
 
-# Load .env file
-load_dotenv(dotenv_path=".env.local")
+# Load .env.local if it exists (local only), but don't override existing env
+load_dotenv(".env.local", override=False)
 
-# Read DB URL from .env
-DATABASE_URL = os.getenv("DATABASE_URL", "postgresql://postgres:sumapln@localhost/flexiserve_db")
+# Get DATABASE_URL from env
+DATABASE_URL = os.getenv("DATABASE_URL")
 
-# Create engine and session
 engine = create_engine(DATABASE_URL)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
-
-# Base class for models
 Base = declarative_base()

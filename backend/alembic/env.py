@@ -5,31 +5,22 @@ from dotenv import load_dotenv
 import os
 import sys
 
-# Load .env variables
-load_dotenv(dotenv_path=".env.local")
+# Load .env.local if it exists (for local), do not override
+load_dotenv(".env.local", override=False)
 
-# Add the parent directory to the Python path so that `app` can be found
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-
-# Import Base and all models to ensure they are registered
 from app.database.database import Base
-from app.models import user  # Ensures models like User are registered
+from app.models import user
 
-# Alembic Config object
 config = context.config
-
-# Set the SQLAlchemy URL from the .env variable
 config.set_main_option('sqlalchemy.url', os.getenv("DATABASE_URL"))
 
-# Setup logging
 if config.config_file_name is not None:
     fileConfig(config.config_file_name)
 
-# Assign metadata for 'autogenerate'
 target_metadata = Base.metadata
 
 def run_migrations_offline() -> None:
-    """Run migrations in 'offline' mode."""
     url = config.get_main_option("sqlalchemy.url")
     context.configure(
         url=url,
@@ -41,7 +32,6 @@ def run_migrations_offline() -> None:
         context.run_migrations()
 
 def run_migrations_online() -> None:
-    """Run migrations in 'online' mode."""
     connectable = engine_from_config(
         config.get_section(config.config_ini_section, {}),
         prefix="sqlalchemy.",
@@ -51,7 +41,7 @@ def run_migrations_online() -> None:
         context.configure(
             connection=connection,
             target_metadata=target_metadata,
-            compare_type=True,  # Optional: detects column type changes
+            compare_type=True,
         )
         with context.begin_transaction():
             context.run_migrations()
