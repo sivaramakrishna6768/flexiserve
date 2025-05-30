@@ -1,13 +1,16 @@
-#!/bin/bash
+#!/bin/sh
 
-# Detect database host
-DB_HOST=${DB_HOST:-db}
+# Wait for Postgres to be available
+echo "Waiting for Postgres..."
 
-echo "Waiting for PostgreSQL at $DB_HOST:5432..."
-./wait-for-it.sh $DB_HOST:5432 --timeout=30 --strict -- echo "Postgres is up"
+until nc -z -v -w30 db 5432
+do
+  echo "Waiting for database connection..."
+  sleep 1
+done
 
-# Run Alembic migrations
+echo "Postgres is up - running migrations..."
 alembic upgrade head
 
-# Start the FastAPI app
+echo "Starting FastAPI server..."
 exec uvicorn app.main:app --host 0.0.0.0 --port 8000
