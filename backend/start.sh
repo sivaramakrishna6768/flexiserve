@@ -1,15 +1,12 @@
 #!/bin/sh
 
-# Wait for Postgres to be available
-echo "Waiting for Postgres..."
+# Just use the provided DATABASE_URL from Render environment
+export DATABASE_URL=${DATABASE_URL}
 
-until nc -z -v -w30 db 5432
-do
-  echo "Waiting for database connection..."
-  sleep 1
-done
+echo "Waiting for db:5432...--timeout=30..."
+wait-for-it.sh "${DATABASE_URL##*@}" -t 30 -- echo "Postgres is up"
 
-echo "Postgres is up - running migrations..."
+echo "Running Alembic migrations..."
 alembic upgrade head
 
 echo "Starting FastAPI server..."
