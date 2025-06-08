@@ -5,8 +5,8 @@ from dotenv import load_dotenv
 import os
 import sys
 
-# Load .env.local if it exists (for local), do not override
-load_dotenv(".env.local", override=False)
+load_dotenv(".env.render", override=False)  # Used in Render
+load_dotenv(".env.local", override=False)   # Used locally
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from app.database.database import Base
