@@ -5,8 +5,11 @@ from dotenv import load_dotenv
 import os
 import sys
 
-env_file = ".env.render" if os.getenv("RENDER") == "true" else ".env.local"
-load_dotenv(env_file, override=False)
+if os.getenv("RENDER") == "true":
+    print("Using Render environment variables...")
+else:
+    from dotenv import load_dotenv
+    load_dotenv(".env.local", override=False)
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from app.database.database import Base
