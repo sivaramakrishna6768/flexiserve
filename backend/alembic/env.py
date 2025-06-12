@@ -1,26 +1,24 @@
 from logging.config import fileConfig
 from sqlalchemy import engine_from_config, pool
 from alembic import context
-from dotenv import load_dotenv
 import os
 import sys
 
-if os.getenv("RENDER") == "true":
-    print("Using Render environment variables...")
-else:
-    from dotenv import load_dotenv
-    load_dotenv(".env.local", override=False)
-
+# Add app folder to sys.path to resolve imports properly
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-from app.database.database import Base
-from app.models import user
 
+# Load your models so Alembic can detect them
+from app.database import Base
+from app.models import user  # This makes sure User model is registered
+
+# Load DB URL from env
 config = context.config
-config.set_main_option('sqlalchemy.url', os.getenv("DATABASE_URL"))
+config.set_main_option("sqlalchemy.url", os.environ.get("DATABASE_URL"))
 
-if config.config_file_name is not None:
-    fileConfig(config.config_file_name)
+# Logging setup
+fileConfig(config.config_file_name)
 
+# Assign target_metadata for autogeneration
 target_metadata = Base.metadata
 
 def run_migrations_offline() -> None:
@@ -44,7 +42,6 @@ def run_migrations_online() -> None:
         context.configure(
             connection=connection,
             target_metadata=target_metadata,
-            compare_type=True,
         )
         with context.begin_transaction():
             context.run_migrations()
