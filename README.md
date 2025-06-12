@@ -1,100 +1,107 @@
-# 🚀 FlexiServe – CI/CD Enabled Web App
+# FlexiServe – CI/CD Enabled Web App
 
-FlexiServe is a modular full-stack web application built with **FastAPI** (backend) and **React** (frontend), using **PostgreSQL** as the database. The project is containerized with Docker, features CI/CD integration using GitHub Actions, and is deployed to Render.
+**FlexiServe** is a modular full-stack web application built with **FastAPI** (backend), **React** (frontend), and **PostgreSQL** (database). It enables scalable API-driven workflows and demonstrates modern DevOps practices with **Docker**, **GitHub Actions**, and **Render**.
+
+---
+
+## 🔧 Features
+
+- 🧩 Modular full-stack design with FastAPI and React
+- 🗃️ PostgreSQL database with Alembic for schema migrations
+- 🚀 REST API for user creation and listing
+- 🐳 Dockerized backend and frontend
+- ⚙️ CI/CD pipeline with GitHub Actions for build/test/deploy
+- 🌐 Deployed on Render (separate services for frontend and backend)
 
 ---
 
 ## 📁 Project Structure
 
-```
 flexiserve/
-├── backend/   # FastAPI backend with PostgreSQL + Alembic
-├── frontend/  # React frontend created with Create React App
-```
+│
+├── backend/ # FastAPI app
+│ ├── app/
+│ │ ├── models/
+│ │ ├── routers/
+│ │ ├── schemas/
+│ │ └── database.py
+│ ├── alembic/ # Alembic migrations
+│ ├── start.sh
+│ ├── Dockerfile
+│ └── requirements.txt
+│
+├── frontend/ # React app
+│ ├── src/
+│ ├── public/
+│ ├── Dockerfile
+│ ├── package.json
+│ └── build/ # Created after npm run build
+│
+└── .github/workflows/ # GitHub Actions CI/CD configs
 
 ---
 
-## 🛠️ Technologies Used
+## ⚙️ Technologies Used
 
-- **Backend:** FastAPI, SQLAlchemy, Alembic
-- **Frontend:** React.js (Create React App)
-- **Database:** PostgreSQL
-- **DevOps:** Docker, Docker Compose, GitHub Actions (CI/CD)
-- **Deployment:** Render
+- **Backend**: FastAPI, SQLAlchemy, Alembic, PostgreSQL
+- **Frontend**: React.js (Create React App)
+- **DevOps**: Docker, GitHub Actions, Render
 
 ---
 
-## ⚙️ Getting Started
+## 🚀 Live Demo
 
-### 🧾 Prerequisites
-
-- Docker & Docker Compose installed
-- Node.js and npm (for local frontend dev)
+- 🌐 Frontend: [https://flexiserve-frontend.onrender.com](https://flexiserve-frontend.onrender.com)  
+- 🛠️ Backend (Swagger UI): [https://flexiserve-backend.onrender.com/docs](https://flexiserve-backend.onrender.com/docs)
 
 ---
 
-### 🔧 Setup Instructions
+## 🚀 Deployment
 
-1. **Clone the repository:**
-
-```bash
-git clone https://github.com/sivaramakrishna6768/flexiserve.git
-cd flexiserve
-```
-
-2. **Run with Docker Compose:**
+### Backend (FastAPI)
 
 ```bash
 cd backend
-docker compose up --build
+docker build -t flexiserve-backend .
+# Deployed on Render with Docker; also supports local run
 ```
 
-3. **Access the app locally:**
-
-- Frontend: [http://localhost:3000](http://localhost:3000)
-- Backend API docs: [http://localhost:8000/docs](http://localhost:8000/docs)
-
----
-
-## 🧪 API Testing
-
-Use the FastAPI Swagger UI at `/docs` to test your backend endpoints:
-
-- `GET /users` → Fetch all users
-- `POST /users` → Add a new user
-
----
-
-## 📦 Frontend – React App
-
-The React app is located in the `frontend/` directory.
-
-To run it independently (non-Docker), do:
+### Frontend (React)
 
 ```bash
 cd frontend
 npm install
-npm start
-```
-
-To build for production:
-
-```bash
 npm run build
+# Deployed as a static site on Render using the build/ directory
 ```
+---
+
+🔄 CI/CD
+
+- GitHub Actions triggers build/test/deploy on push to main
+- Docker containers are built and deployed to Render
+- Frontend and backend services are managed independently
 
 ---
 
-## 🚀 Deployment (Optional)
+📬 API Endpoints
 
-You can deploy the full-stack application to **Render** using:
+- Method	Endpoint	Description
+- GET	/users/	List all users
+- POST	/users/	Create new user
 
-- Render web service (for FastAPI)
-- Render static site (for React)
-- PostgreSQL instance (Render or external)
+---
+
+🧪 How to Test
+
+- Visit frontend URL: https://flexiserve-frontend.onrender.com
+- Submit name and email
+- Confirm data via backend Swagger UI : https://flexiserve-backend.onrender.com/docs
 
 ---
 
 ## 🙌 Credits
 
 This project was built by **Siva Ramakrishna Palaparthy** as a CI/CD-enabled full-stack portfolio piece to demonstrate end-to-end application design and deployment.
+
+---
