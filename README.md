@@ -1,107 +1,100 @@
-# FlexiServe – CI/CD Enabled Web App
+# FlexiServe – CI/CD Enabled User Management App
 
-**FlexiServe** is a modular full-stack web application built with **FastAPI** (backend), **React** (frontend), and **PostgreSQL** (database). It enables scalable API-driven workflows and demonstrates modern DevOps practices with **Docker**, **GitHub Actions**, and **Render**.
+FlexiServe is a full-stack user management dashboard built with FastAPI, PostgreSQL, and React. It allows you to add and view users using a clean frontend interface, backed by a robust API and database infrastructure. The project is CI/CD-enabled and deployed on [Render](https://render.com) with GitHub Actions for automated builds and deployments.
 
----
+## 🌐 Live Deployment
 
-## 🔧 Features
+- **Frontend**: [Visit Frontend](https://flexiserve-frontend.onrender.com)
+- **Backend (Swagger UI)**: [Visit API Docs](https://flexiserve-backend.onrender.com/docs)
 
-- 🧩 Modular full-stack design with FastAPI and React
-- 🗃️ PostgreSQL database with Alembic for schema migrations
-- 🚀 REST API for user creation and listing
-- 🐳 Dockerized backend and frontend
-- ⚙️ CI/CD pipeline with GitHub Actions for build/test/deploy
-- 🌐 Deployed on Render (separate services for frontend and backend)
+## 🚀 Features
 
----
+- Add and fetch users through a user-friendly interface.
+- RESTful backend with FastAPI.
+- PostgreSQL integration with Alembic migrations.
+- Dockerized frontend and backend.
+- CI/CD pipeline with GitHub Actions.
+- Deployed on Render using free-tier services.
+
+## 🧰 Tech Stack
+
+- **Frontend**: React, HTML/CSS, JavaScript
+- **Backend**: FastAPI, SQLAlchemy, Pydantic
+- **Database**: PostgreSQL (hosted on Render)
+- **DevOps**: Docker, GitHub Actions, Render
+- **Migrations**: Alembic
 
 ## 📁 Project Structure
 
+```
 flexiserve/
 │
-├── backend/ # FastAPI app
-│ ├── app/
-│ │ ├── models/
-│ │ ├── routers/
-│ │ ├── schemas/
-│ │ └── database.py
-│ ├── alembic/ # Alembic migrations
-│ ├── start.sh
-│ ├── Dockerfile
-│ └── requirements.txt
+├── backend/
+│   ├── app/
+│   │   ├── database/
+│   │   ├── models/
+│   │   ├── routers/
+│   │   ├── schemas/
+│   │   └── main.py
+│   ├── alembic/
+│   └── Dockerfile
 │
-├── frontend/ # React app
-│ ├── src/
-│ ├── public/
-│ ├── Dockerfile
-│ ├── package.json
-│ └── build/ # Created after npm run build
+├── frontend/
+│   ├── public/
+│   └── src/
+│       ├── App.js
+│       └── index.js
+│   └── Dockerfile
 │
-└── .github/workflows/ # GitHub Actions CI/CD configs
-
----
-
-## ⚙️ Technologies Used
-
-- **Backend**: FastAPI, SQLAlchemy, Alembic, PostgreSQL
-- **Frontend**: React.js (Create React App)
-- **DevOps**: Docker, GitHub Actions, Render
-
----
-
-## 🚀 Live Demo
-
-- 🌐 Frontend: [https://flexiserve-frontend.onrender.com](https://flexiserve-frontend.onrender.com)  
-- 🛠️ Backend (Swagger UI): [https://flexiserve-backend.onrender.com/docs](https://flexiserve-backend.onrender.com/docs)
-
----
-
-## 🚀 Deployment
-
-### Backend (FastAPI)
-
-```bash
-cd backend
-docker build -t flexiserve-backend .
-# Deployed on Render with Docker; also supports local run
+└── README.md
 ```
 
-### Frontend (React)
+## ⚙️ Setup Instructions
 
-```bash
-cd frontend
-npm install
-npm run build
-# Deployed as a static site on Render using the build/ directory
-```
----
+### 🐳 Dockerized Local Development
 
-🔄 CI/CD
+1. **Clone the repository**  
+   ```bash
+   git clone https://github.com/your-username/flexiserve.git
+   cd flexiserve
+   ```
 
-- GitHub Actions triggers build/test/deploy on push to main
-- Docker containers are built and deployed to Render
-- Frontend and backend services are managed independently
+2. **Build and run the backend locally**  
+   ```bash
+   cd backend
+   docker build -t flexiserve-backend .
+   docker run -p 8000:8000 --env-file .env.local flexiserve-backend
+   ```
 
----
+3. **Build and run the frontend locally**  
+   ```bash
+   cd frontend
+   docker build -t flexiserve-frontend .
+   docker run -p 3000:3000 flexiserve-frontend
+   ```
 
-📬 API Endpoints
+### 🧪 Testing the API
 
-- Method	Endpoint	Description
-- GET	/users/	List all users
-- POST	/users/	Create new user
+Go to [http://localhost:8000/docs](http://localhost:8000/docs) to test the backend API with Swagger UI.
 
----
+## 🔄 CI/CD and Deployment
 
-🧪 How to Test
+- **CI/CD**: GitHub Actions automatically build and deploy backend and frontend upon push to `main`.
+- **Render Deployment**:
+  - Backend: Deployed as a **Web Service** with Docker.
+  - Frontend: Deployed as a **Static Site** with `build` as the output directory.
 
-- Visit frontend URL: https://flexiserve-frontend.onrender.com
-- Submit name and email
-- Confirm data via backend Swagger UI : https://flexiserve-backend.onrender.com/docs
+## 📌 Validation Against Resume & LinkedIn
 
----
+✅ CI/CD pipeline using GitHub Actions  
+✅ Dockerized FastAPI backend and React frontend  
+✅ PostgreSQL integration with Alembic migrations  
+✅ Render deployment (backend and frontend)  
+✅ Functional CRUD app with working endpoints and live demo
 
-## 🙌 Credits
+## 📞 Credits
 
-This project was built by **Siva Ramakrishna Palaparthy** as a CI/CD-enabled full-stack portfolio piece to demonstrate end-to-end application design and deployment.
+This project was built by Siva Ramakrishna Palaparthy as a CI/CD-enabled full-stack portfolio piece to demonstrate end-to-end application design and deployment.
 
----
+M.S. Computer Science, Syracuse University  
+Email: krishpalaparthy6768@gmail.com
