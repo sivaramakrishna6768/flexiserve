@@ -4,8 +4,14 @@ FlexiServe is a full-stack user management dashboard built with FastAPI, Postgre
 
 ## 🌐 Live Deployment
 
-- **Frontend**: [Visit Frontend](https://flexiserve-frontend.onrender.com)
-- **Backend (Swagger UI)**: [Visit API Docs](https://flexiserve-backend.onrender.com/docs)
+- **Frontend**: https://flexiserve-frontend.onrender.com : [Visit Frontend](https://flexiserve-frontend.onrender.com)
+- **Backend (Swagger UI)**: https://flexiserve-backend.onrender.com/docs : [Visit API Docs](https://flexiserve-backend.onrender.com/docs)
+
+- 💤 Note: This app is deployed on Render’s free tier. If the demo links are inactive, please refer to the README to run locally or contact me to resume deployment.
+
+Clear instructions for running locally:
+- npm install && npm run dev (frontend) and
+- uvicorn app.main:app (backend)
 
 ## 🚀 Features
 
